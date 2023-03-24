@@ -9,20 +9,27 @@ $(function () {
     // function? How can DOM traversal be used to get the "hour-x" id of the
     // time-block containing the button that was clicked? How might the id be
     // useful when saving the description in local storage?
+
+    // Defining important variables for html elements 
     var saveBtn = $('.saveBtn');
     var description = $('.description');
     var hour = [ 9, 10, 11, 12, 13, 14, 15, 16, 17];
-
-    saveBtn.on('click', function () {
-        for (let i = 0; i < description.length; i++)
-        if (description.value != '') {
+    // creating variables for each save button
+    var saveBtnId = [];
+    for (let i = 0; i < hour.length; i++) {
+        saveBtnId[i] = $(`#${hour[i]}`).children().eq(2)
+        console.log(saveBtnId[i]);
+    }
+    // function to save block items only when that specific block save is clicked
+    function saveItem() {
+        for (let i = 0; i < saveBtn.length; i++){
+            saveBtnId[i].on('click', function () {
             localStorage.setItem(`schedule-hour-${hour[i]}`, description[i].value);
-        }
-      });
+        }); 
+        }   
+    }
+    saveItem();
 
-    // ('#' + i)
-    
-    
     // TODO: Add code to apply the past, present, or future class to each time
     // block by comparing the id to the current hour. HINTS: How can the id
     // attribute of each time-block be used to conditionally add or remove the
@@ -32,23 +39,34 @@ $(function () {
     var currentTime = dayjs().hour();
     var time = parseInt(currentTime);
     var timeBlock = $('.time-block');
-    
-    for (let i = 0; i < timeBlock.length; i++) {
-        if (timeBlock[i].getAttribute('id') < time) {
-            timeBlock[i].setAttribute('class', 'row time-block past');
-        } else if (timeBlock[i].getAttribute('id') == time) {
-            timeBlock[i].setAttribute('class', 'row time-block present');
-        } else {
-            timeBlock[i].setAttribute('class', 'row time-block future');
+    // function to set time blocks to past, present, or future
+    function setTimes() {
+        for (let i = 0; i < timeBlock.length; i++) {
+            if (timeBlock[i].getAttribute('id') < time) {
+                timeBlock[i].setAttribute('class', 'row time-block past');
+            } else if (timeBlock[i].getAttribute('id') == time) {
+                timeBlock[i].setAttribute('class', 'row time-block present');
+            } else {
+                timeBlock[i].setAttribute('class', 'row time-block future');
+            }
         }
     }
+    setTimes();
+
+    // Add margin to bottom row
     $('#17').addClass('mb-5');
     
     // TODO: Add code to get any user input that was saved in localStorage and set
     // the values of the corresponding textarea elements. HINT: How can the id
     // attribute of each time-block be used to do this?
     
-
+    // function to run when page initiates, loads previously stored saved items
+    function init() {
+        for (let i = 0; i < description.length; i++) {
+            description[i].textContent = localStorage.getItem(`schedule-hour-${hour[i]}`);
+        }
+    }
+    init();
 
     // TODO: Add code to display the current date in the header of the page.
     var currentDay = $('#currentDay');
