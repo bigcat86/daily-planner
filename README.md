@@ -18,3 +18,4 @@ challenge #5 - work day scheduler (daily planner)
 
 ## Check it out here : https://bigcat86.github.io/daily-planner/  and view some screenshots below:
 ![Screenshot 2023-03-23 at 10 52 45 PM](https://user-images.githubusercontent.com/122062578/227427585-d74bea82-8ee3-471a-863c-1faa61d2c211.png)
+![Screenshot 2023-03-27 at 8 44 30 AM](https://user-images.githubusercontent.com/122062578/227975094-7968c2ad-522e-4949-a445-d4c1ff195d67.png)
